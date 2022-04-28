@@ -24,7 +24,7 @@
 #include <cassert>  // because I am paranoid
 #include <new>      // std::bad_alloc
 #include <memory>   // for std::allocator
-
+#include <iostream>
 class TestVector; // forward declaration for unit tests
 class TestStack;
 class TestPQueue;
@@ -112,9 +112,9 @@ public:
    // Status
    //
 
-   size_t  size()     const { return 999;  }
-   size_t  capacity() const { return 999;  }
-   bool empty()       const { return true; }
+    size_t  size()     const { return numElements;  }
+    size_t  capacity() const { return numCapacity; }
+    bool empty()       const { return size() < 0;  }
    
 private:
    
@@ -153,37 +153,43 @@ public:
    }
 
    // equals, not equals operator
-   bool operator != (const iterator& rhs) const { return true; }
-   bool operator == (const iterator& rhs) const { return true; }
+    bool operator != (const iterator& rhs) const { return p!= rhs.p; }
+    bool operator == (const iterator& rhs) const { return p == rhs.p; }
 
    // dereference operator
    int& operator * ()
    {
-      return *(new int);
+      return *(p);
    }
 
    // prefix increment
    iterator& operator ++ ()
    {
+       p++;
       return *this;
    }
 
    // postfix increment
    iterator operator ++ (int postfix)
    {
-      return *this;
+       iterator temp = *this;
+       ++*this;
+      return temp;
    }
 
    // prefix decrement
    iterator& operator -- ()
    {
+       p--;
       return *this;
    }
 
    // postfix decrement
    iterator operator -- (int postfix)
    {
-      return *this;
+       iterator temp = *this;
+       --*this;
+      return temp;
    }
 
 private:
@@ -196,11 +202,12 @@ private:
  * efault constructor: set the number of elements,
  * construct each element, and copy the values over
  ****************************************/
-vector :: vector()
+vector :: vector(): data{nullptr}, numElements(0), numCapacity(0)
 {
-   data = new int[99];
-   numElements = 17;
-   numCapacity = 19;
+    std:: cout << data << std::endl;
+    std:: cout << numElements << " and "  << numCapacity << std:: endl;
+    
+    std:: cout << "--------------------------------------" << std:: endl;
 }
 
 /*****************************************
@@ -210,9 +217,13 @@ vector :: vector()
  ****************************************/
 vector :: vector(size_t num, const int & t) 
 {
-   data = new int[99];
-   numElements = 17;
-   numCapacity = 19;
+    data = new int[num];
+    numElements = num;
+    numCapacity = num;
+    
+    for(int i =0; i < numElements; i++) {
+        data[i] = t;
+    }
 }
 
 /*****************************************
@@ -221,9 +232,16 @@ vector :: vector(size_t num, const int & t)
  ****************************************/
 vector :: vector(const std::initializer_list<int> & l) 
 {
-   data = new int[99];
-   numElements = 17;
-   numCapacity = 19;
+   
+    data = new int[l.size()];
+    int count = 0;
+    for (auto it = l.begin(); it != l.end(); ++it){
+        data[count] = *it;
+        count++;
+    };
+
+   numElements = l.size();
+   numCapacity = l.size();
 }
 
 /*****************************************
@@ -233,9 +251,12 @@ vector :: vector(const std::initializer_list<int> & l)
  ****************************************/
 vector :: vector(size_t num)
 {
-   data = new int[99];
-   numElements = 17;
-   numCapacity = 19;
+
+    data = (num >0) ? new int[num] : nullptr;
+
+    numElements = num;
+    numCapacity = num;
+    
 }
 
 /*****************************************
@@ -245,9 +266,21 @@ vector :: vector(size_t num)
  ****************************************/
 vector :: vector (const vector & rhs)
 {
-   data = new int[99];
-   numElements = 17;
-   numCapacity = 19;
+    // Allocate space
+    if (!rhs.data)
+    {
+        data =  nullptr;
+    } else {
+        std::cout << rhs.numElements << std:: endl;
+        data = new int[rhs.numElements];
+        // Make a copy
+         for(int i= 0; i < rhs.numElements; i++){
+             data[i] = rhs.data[i];
+         }
+    }
+  
+   numElements = rhs.numElements;
+   numCapacity = rhs.numElements;
 }
 
 /*****************************************
@@ -256,9 +289,16 @@ vector :: vector (const vector & rhs)
  ****************************************/
 vector :: vector (vector && rhs)
 {
-   data = new int[99];
-   numElements = 17;
-   numCapacity = 19;
+    // Steal the values
+    data = rhs.data;
+    numElements = rhs.numElements;
+    numCapacity = rhs.numCapacity;
+    
+    // Set it to Zero or Null
+    rhs.data = nullptr;
+    rhs.numElements = 0;
+    rhs.numCapacity = 0;
+    
 }
 
 /*****************************************
@@ -268,7 +308,10 @@ vector :: vector (vector && rhs)
  ****************************************/
 vector :: ~vector()
 {
-   
+//    for(int i=0; i < numElements; i++){
+//        delete &data[i];
+//    }
+    delete[] data;
 }
 
 /***************************************
@@ -320,7 +363,7 @@ void vector :: shrink_to_fit()
  ****************************************/
 int & vector :: operator [] (size_t index)
 {
-   return *(new int);
+   return data[index];
 }
 
 /******************************************
@@ -329,7 +372,7 @@ int & vector :: operator [] (size_t index)
  *****************************************/
 const int & vector :: operator [] (size_t index) const
 {
-   return *(new int);
+    return data[index];
 }
 
 /*****************************************
@@ -338,16 +381,15 @@ const int & vector :: operator [] (size_t index) const
  ****************************************/
 int & vector :: front ()
 {
-   return *(new int);
+    return data[0];
 }
-
 /******************************************
  * VECTOR :: FRONT
  * Read-Write access
  *****************************************/
 const int & vector :: front () const
 {
-   return *(new int);
+    return data[0];
 }
 
 /*****************************************
@@ -356,7 +398,7 @@ const int & vector :: front () const
  ****************************************/
 int & vector :: back()
 {
-   return *(new int);
+    return data[numElements-1];
 }
 
 /******************************************
@@ -365,7 +407,7 @@ int & vector :: back()
  *****************************************/
 const int & vector :: back() const
 {
-   return *(new int);
+   return data[numElements-1];
 }
 
 /***************************************
