@@ -23,6 +23,10 @@ int Spy::counters[] = {};
  ***********************************************************************/
 int main()
 {
+
+   custom::vector<int> test;
+
+
 #ifdef DEBUG
    // unit tests
    TestSpy().run();

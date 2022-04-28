@@ -1,6 +1,6 @@
 ﻿  testVector.cpp
-C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 2 Vectors\100Percent Option\testVector.h(136,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
-C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 2 Vectors\100Percent Option\testVector.h(151,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
-C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 2 Vectors\100Percent Option\testVector.h(167,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
-C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 2 Vectors\100Percent Option\testVector.h(201,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
-  LabVector.vcxproj -> C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 2 Vectors\100Percent Option\x64\Debug\LabVector.exe
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(136,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(151,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(167,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(201,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+  LabVector.vcxproj -> C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\x64\Debug\LabVector.exe

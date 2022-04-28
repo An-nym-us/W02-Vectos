@@ -30,6 +30,14 @@ class TestStack;
 class TestPQueue;
 class TestHash;
 
+
+/*
+* Add note in submission report for what i am assuming to be an easter egg with thee context of Theme from "0xBAADF00D" by Slugbug Located in teh test cases
+*/
+
+
+
+
 namespace custom
 {
 
@@ -74,8 +82,8 @@ public:
    //
 
    class iterator;
-   iterator       begin() { return iterator(); }
-   iterator       end() { return iterator(); }
+   iterator       begin() { return iterator(&data[0]); }
+   iterator       end() { return iterator(&data[numCapacity]); }
 
    //
    // Access
@@ -102,10 +110,14 @@ public:
    // Remove
    //
 
-   void clear()
+   // Works
+   void clear()   
    {
-
+      data = nullptr;
+      numCapacity = 0;
+      numElements = 0;
    }
+
    void pop_back()
    {
 
@@ -115,15 +127,21 @@ public:
    //
    // Status
    //
+   
 
-   size_t  size() const // Works
+
+
+   // Works
+   size_t  size() const 
    { 
       return numCapacity;  
    }
-   size_t  capacity() const // Works
+   // Works
+   size_t  capacity() const 
    { 
       return numCapacity;  
    }
+   // Works
    bool empty() const// Works
    { 
       if (data == nullptr)
@@ -167,9 +185,9 @@ class vector <T> ::iterator
    friend class ::TestHash;
 public:
    // constructors, destructors, and assignment operator
-   iterator()                           { this->p = new T; }
-   iterator(T* p)                       { this->p = new T; }
-   iterator(const iterator& rhs)        { this->p = new T; }
+   iterator()                           { this->p = nullptr; }
+   iterator(T* p)                       { this->p = p; }
+   iterator(const iterator& rhs)        { this->p = rhs.p; }
    iterator(size_t index, vector<T>& v) { this->p = new T; }
    iterator& operator = (const iterator& rhs)
    {
@@ -223,9 +241,9 @@ private:
 template <typename T>
 vector <T> :: vector()
 {
-   data = new T[10];
-   numCapacity = 99;
-   numElements = 99;
+   data = nullptr;
+   numCapacity = 0;
+   numElements = 0;
 }
 
 /*****************************************
@@ -378,7 +396,7 @@ template <typename T>
 T & vector <T> :: front ()
 {
    
-   return *(new T);
+   return data[0];
 }
 
 /******************************************
@@ -388,7 +406,7 @@ T & vector <T> :: front ()
 template <typename T>
 const T & vector <T> :: front () const
 {
-   return *(new T);
+   return data[0];
 }
 
 /*****************************************
