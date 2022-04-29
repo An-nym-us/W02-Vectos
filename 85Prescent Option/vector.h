@@ -105,6 +105,9 @@ public:
    }
    void pop_back()
    {
+      data[numElements] = 0;
+      
+      numElements -= 1;
    }
    void shrink_to_fit();
 
@@ -204,10 +207,10 @@ private:
  ****************************************/
 vector :: vector(): data{nullptr}, numElements(0), numCapacity(0)
 {
-    std:: cout << data << std::endl;
-    std:: cout << numElements << " and "  << numCapacity << std:: endl;
+    //std:: cout << data << std::endl;
+    //std:: cout << numElements << " and "  << numCapacity << std:: endl;
     
-    std:: cout << "--------------------------------------" << std:: endl;
+    //std:: cout << "--------------------------------------" << std:: endl;
 }
 
 /*****************************************
@@ -352,6 +355,9 @@ void vector :: reserve(size_t newCapacity)
  **************************************/
 void vector :: shrink_to_fit()
 {
+   numCapacity = numElements;
+   if (numElements == 0)
+      data = nullptr;
    
 }
 
@@ -459,7 +465,7 @@ vector& vector :: operator = (vector&& rhs)
  **************************************/
 vector::iterator vector :: begin()
 {
-   return iterator();
+   return iterator(&data[0]);
 }
 
 /***************************************
@@ -471,7 +477,7 @@ vector::iterator vector :: begin()
  **************************************/
 vector::iterator vector :: end()
 {
-   return iterator();
+   return iterator(&data[numElements]);
 }
 
 
