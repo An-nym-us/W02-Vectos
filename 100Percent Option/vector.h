@@ -188,7 +188,9 @@ public:
    iterator()                           { this->p = nullptr; }
    iterator(T* p)                       { this->p = p; }
    iterator(const iterator& rhs)        { this->p = rhs.p; }
-   iterator(size_t index, vector<T>& v) { this->p = new T; }
+   iterator(size_t index, vector<T>& v) { 
+      this->p = new T; 
+   }
    iterator& operator = (const iterator& rhs)
    {
       this->p = new T;
@@ -196,36 +198,60 @@ public:
    }
 
    // equals, not equals operator
-   bool operator != (const iterator& rhs) const { return true; }
-   bool operator == (const iterator& rhs) const { return true; }
+   bool operator != (const iterator& rhs) const 
+   { 
+      if (rhs.p != p)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+
+   bool operator == (const iterator& rhs) const 
+   { 
+      if (rhs.p == p)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
 
    // dereference operator
    T& operator * ()
    {
-      return *(new T);
+      return *p;
    }
 
    // prefix increment
    iterator& operator ++ ()
    {
+      *p++;
       return *this;
    }
 
    // postfix increment
    iterator operator ++ (int postfix)
    {
-      return *this;
+      return iterator(p++);
    }
 
    // prefix decrement
    iterator& operator -- ()
    {
+      *p--;
       return *this;
    }
 
    // postfix decrement
    iterator operator -- (int postfix)
    {
+      *p--;
       return *this;
    }
 
@@ -254,9 +280,13 @@ vector <T> :: vector()
 template <typename T>
 vector <T> :: vector(size_t num, const T & t) 
 {
-   data = new T[10];
-   numCapacity = 99;
-   numElements = 99;
+   data = new T[num];
+   for (int i = 0; i < num; i++)
+   {
+      data[i] = t;
+   }
+   numCapacity = num;
+   numElements = num;
 }
 
 /*****************************************
@@ -279,9 +309,9 @@ vector <T> :: vector(const std::initializer_list<T> & l)
 template <typename T>
 vector <T> :: vector(size_t num) 
 {
-   data = new T[10];
-   numCapacity = 99;
-   numElements = 99;
+   data = nullptr;
+   numCapacity = num;
+   numElements = num;
 }
 
 /*****************************************
@@ -350,7 +380,7 @@ void vector <T> :: resize(size_t newElements, const T & t)
 template <typename T>
 void vector <T> :: reserve(size_t newCapacity)
 {
-   numCapacity = 99;
+   numCapacity = newCapacity;
 }
 
 /***************************************
@@ -416,7 +446,8 @@ const T & vector <T> :: front () const
 template <typename T>
 T & vector <T> :: back()
 {
-   return *(new T);
+   
+   return data[numElements];
 }
 
 /******************************************
@@ -426,7 +457,7 @@ T & vector <T> :: back()
 template <typename T>
 const T & vector <T> :: back() const
 {
-   return *(new T);
+   return data[numElements];
 }
 
 /***************************************

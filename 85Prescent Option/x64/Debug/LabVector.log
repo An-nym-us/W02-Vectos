@@ -1,0 +1,6 @@
+﻿  testVector.cpp
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\85Prescent Option\testVector.h(132,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\85Prescent Option\testVector.h(147,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\85Prescent Option\testVector.h(162,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\85Prescent Option\testVector.h(195,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
+  LabVector.vcxproj -> C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\85Prescent Option\x64\Debug\LabVector.exe
