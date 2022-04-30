@@ -16,7 +16,7 @@
  *        vector                 : A class that represents a Vector
  *        vector::iterator       : An interator through Vector
  * Author
- *    <your names here>
+ *    Jonathan Gunderson and Sulav Dahal
  ************************************************************************/
 
 #pragma once
@@ -55,7 +55,7 @@ class vector
    friend class ::TestHash;
 public:
    
-   // 
+   //
    // Construct
    //
 
@@ -75,16 +75,16 @@ public:
    {
       // swap if same size;
       if (numCapacity == rhs.numCapacity)
-      {     
+      {
          T& temp = *data;
          data = rhs.data;
          rhs.data = &temp;
       }
       else if (numCapacity > rhs.numCapacity)
-      { 
+      {
          T& temp = *data;
-         int tempCap = numCapacity;
-         int tempEle = numElements;
+         int tempCap = int(numCapacity);
+         int tempEle = int(numElements);
 
 
          data = rhs.data;
@@ -97,11 +97,11 @@ public:
          rhs.numElements = tempEle;
          
       }
-      else if (numCapacity < rhs.numCapacity)
+      else
       {
          T& temp = *data;
-         int tempCap = numCapacity;
-         int tempEle = numElements;
+         int tempCap = int(numCapacity);
+         int tempEle = int(numElements);
 
 
          data = rhs.data;
@@ -155,7 +155,7 @@ public:
    //
 
    // Works
-   void clear()   
+   void clear()
    {
       numElements = 0;
       for (int i = 0; i < numElements; i++)
@@ -163,7 +163,7 @@ public:
    }
 
    void pop_back()
-   {      
+   {
       if (data == nullptr)
       {
          return;
@@ -184,26 +184,19 @@ public:
 
 
    // Works
-   size_t  size() const 
-   { 
-      return numCapacity;  
+   size_t  size() const
+   {
+      return numCapacity;
    }
    // Works
-   size_t  capacity() const 
-   { 
-      return numCapacity;  
+   size_t  capacity() const
+   {
+      return numCapacity;
    }
    // Works
    bool empty() const// Works
-   { 
-      if (data == nullptr)
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
+   {
+       return data == nullptr;
    }
    
    // adjust the size of the buffer
@@ -248,28 +241,15 @@ public:
    }
 
    // equals, not equals operator
-   bool operator != (const iterator& rhs) const 
-   { 
-      if (rhs.p != p)
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
+   bool operator != (const iterator& rhs) const
+   {
+       return rhs.p !=p;
+   
    }
 
-   bool operator == (const iterator& rhs) const 
-   { 
-      if (rhs.p == p)
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
+   bool operator == (const iterator& rhs) const
+   {
+       return rhs.p == p;
    }
 
    // dereference operator
@@ -281,7 +261,7 @@ public:
    // prefix increment
    iterator& operator ++ ()
    {
-      *p++;
+      p++;
       return *this;
    }
 
@@ -328,7 +308,7 @@ vector <T> :: vector()
  * construct each element, and copy the values over
  ****************************************/
 template <typename T>
-vector <T> :: vector(size_t num, const T & t) 
+vector <T> :: vector(size_t num, const T & t)
 {
    data = new T[num];
    for (int i = 0; i < num; i++)
@@ -344,7 +324,7 @@ vector <T> :: vector(size_t num, const T & t)
  * Create a vector with an initialization list.
  ****************************************/
 template <typename T>
-vector <T> :: vector(const std::initializer_list<T> & l) 
+vector <T> :: vector(const std::initializer_list<T> & l)
 {
    data = new T[l.size()];
    int count = 0;
@@ -363,24 +343,24 @@ vector <T> :: vector(const std::initializer_list<T> & l)
  * construct each element, and copy the values over
  ****************************************/
 template <typename T>
-vector <T> :: vector(size_t num) 
+vector <T> :: vector(size_t num)
 {
    if (num == 0)
    {
       data = nullptr;
-      numCapacity = num;
-      numElements = num;
+    
    }
    else
    {
+       // Allocate
       data = new T[num];
       for (int i = 0; i < num; i++)
       {
          data[i] = 0;
       }
-      numCapacity = num;
-      numElements = num;
    }
+    numCapacity = num;
+    numElements = num;
 
 }
 
@@ -390,16 +370,16 @@ vector <T> :: vector(size_t num)
  * call the copy constructor on each element
  ****************************************/
 template <typename T>
-vector <T> :: vector (const vector & rhs) 
+vector <T> :: vector (const vector & rhs)
 {
    
    
-   // Allocate space
    if (!rhs.data)
    {
       data = nullptr;
    }
    else {
+       // Allocate space
       data = new T[rhs.numElements];
       // Make a copy
       for (int i = 0; i < rhs.numElements; i++) {
@@ -449,28 +429,27 @@ vector <T> :: ~vector()
 template <typename T>
 void vector <T> :: resize(size_t newElements)
 {
-   if (newElements < this->numElements)
-   {
-      this->numElements = newElements;
-   }
-   else if (newElements > this->numElements)
-   {
-      T* temp = new T[newElements];
-      
-      for (int i = 0; i < this->numElements; i++)
-      {
-         temp[i] =data[i] ;
-      }
-      for (int i = this->numElements; i < newElements; i++)
-      {
-         temp[i] = 0;
-      }
-      data = temp;
-      this->numElements = newElements;
-      this->numCapacity = newElements;
-   }
-
-
+    if (newElements > size())
+    {
+        int count = 0;
+        T *newData = new T[newElements];
+        
+        while(count < numElements)
+        {
+               newData[count] = data[count];
+               count++;
+        }
+           
+        while(count < newElements)
+        {
+            newData[count] = 0;
+            count++;
+        }
+        delete[] data;
+        data = newData;
+        numCapacity = newElements;
+    }
+    numElements = newElements;
 
 }
 
@@ -478,27 +457,26 @@ template <typename T>
 void vector <T> :: resize(size_t newElements, const T & t)
 {
 
-   if (newElements < this->numElements)
-   {
-      this->numElements = newElements;
-   }
-   else if (newElements > this->numElements)
-   {
-      T* temp = new T[newElements];
+    int count =0;
+    if(newElements > size())
+    {
+        T *newData = new T[newElements];
 
-      for (int i = 0; i < this->numElements; i++)
-      {
-         temp[i] = data[i];
-      }
-      for (int i = this->numElements; i < newElements; i++)
-      {
-         temp[i] = t;
-      }
-      data = temp;
-      this->numElements = newElements;
-      this->numCapacity = newElements;
-   }
-
+        while(count < numElements)
+        {
+            newData[count] = data[count];
+            count++;
+        }
+        while(count < newElements)
+        {
+            newData[count] = t;
+            count++;
+        }
+        delete[] data;
+        data = newData;
+        numElements = newElements;
+        numCapacity = newElements;
+    }
 
 }
 
@@ -512,11 +490,10 @@ void vector <T> :: resize(size_t newElements, const T & t)
  **************************************/
 template <typename T>
 void vector <T> :: reserve(size_t newCapacity)
-{   
+{
    if (this->numCapacity >= newCapacity)
       return;
-   else
-      this->numCapacity = newCapacity;
+   this->numCapacity = newCapacity;
 }
 
 /***************************************
@@ -582,7 +559,7 @@ const T & vector <T> :: front () const
  ****************************************/
 template <typename T>
 T & vector <T> :: back()
-{ 
+{
    return data[numElements - 1];
 }
 
@@ -617,12 +594,12 @@ void vector <T> :: push_back (const T & t)
       
    }
    else if ((numElements+1) <= numCapacity)
-   { 
+   {
       data[numElements ] = t;
       numElements += 1;
    
    }
-   else if ((numElements + 1) > numCapacity)
+   else
    {
       T* temp = new T[numElements + 1];
       temp = data;
@@ -651,9 +628,9 @@ void vector <T> ::push_back(T && t)
    else if ((numElements+1) <= numCapacity)
    {
       data[numElements] = t;
-      numElements += 1; 
+      numElements += 1;
    }
-   else if ((numElements + 1) > numCapacity)
+   else
    {
       T* temp = new T[numElements + 1];
       temp = data;
@@ -690,9 +667,9 @@ vector <T> & vector <T> :: operator = (const vector & rhs)
       for (int i = 0; i < rhs.size(); i++)
       {
          data[i] = rhs.data[i];
-      }  
+      }
    }
-   else if (numElements > rhs.numElements)
+   else
    {
       numElements = rhs.numElements;
       for (int i = 0; i < rhs.size(); i++)
@@ -721,14 +698,14 @@ vector <T>& vector <T> :: operator = (vector&& rhs)
    else if (numElements < rhs.numElements)
    {
       numElements = rhs.numElements;
-      numCapacity = rhs.numCapacity;    
+      numCapacity = rhs.numCapacity;
       for (int i = 0; i < rhs.size(); i++)
       {
          data[i] = rhs.data[i];
       }
       rhs.numElements = 0;
    }
-   else if (numElements > rhs.numElements)
+   else
    {
       numElements = rhs.numElements;
       for (int i = 0; i < rhs.size(); i++)
@@ -748,4 +725,5 @@ vector <T>& vector <T> :: operator = (vector&& rhs)
 
 
 } // namespace custom
+
 
