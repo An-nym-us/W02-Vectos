@@ -607,7 +607,31 @@ const T & vector <T> :: back() const
 template <typename T>
 void vector <T> :: push_back (const T & t)
 {
+   if (numElements == 0)
+   {
+      T* temp = new T[numElements + 1];
+      temp[numElements] = t;
+      numElements += 1;
+      numCapacity += 1;
+      this->data = temp;
+      
+   }
+   else if ((numElements+1) <= numCapacity)
+   { 
+      data[numElements ] = t;
+      numElements += 1;
    
+   }
+   else if ((numElements + 1) > numCapacity)
+   {
+      T* temp = new T[numElements + 1];
+      temp = data;
+      temp[numElements] = t;
+      this->data = temp;
+      numElements += 1;
+      numCapacity = numCapacity * 2; // double capacity
+   }
+
 
 
 
@@ -616,7 +640,28 @@ void vector <T> :: push_back (const T & t)
 template <typename T>
 void vector <T> ::push_back(T && t)
 {
-   
+   if (numElements == 0)
+   {
+      T* temp = new T[numElements + 1];
+      temp[numElements] = t;
+      numElements += 1;
+      numCapacity += 1;
+      this->data = temp;
+   }
+   else if ((numElements+1) <= numCapacity)
+   {
+      data[numElements] = t;
+      numElements += 1; 
+   }
+   else if ((numElements + 1) > numCapacity)
+   {
+      T* temp = new T[numElements + 1];
+      temp = data;
+      temp[numElements] = t;
+      this->data = temp;
+      numElements += 1;
+      numCapacity = numCapacity * 2; // double capacity
+   }
    
 }
 
