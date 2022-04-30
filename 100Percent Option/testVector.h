@@ -46,7 +46,7 @@ public:
       test_destructor_standard();
       test_destructor_partiallyFilled();
       
-      // Assign
+      //// Assign
       test_assign_empty();
       test_assign_sameSize();
       test_assign_rightBigger();
@@ -55,6 +55,7 @@ public:
       test_assignMove_sameSize();
       test_assignMove_rightBigger();
       test_assignMove_leftBigger();
+
       test_swap_empty();
       test_swap_sameSize();
       test_swap_rightBigger();
@@ -71,7 +72,7 @@ public:
       test_iterator_construct_pointer();
       test_iterator_construct_index();
 
-      // Access
+      //Access
       test_subscript_read();
       test_subscript_write();
       test_front_read();
@@ -92,6 +93,7 @@ public:
       test_resize_fourZero();
       test_resize_fourSixDefault();
       test_resize_fourSixValue();
+
       test_reserve_emptyZero();
       test_reserve_emptyTen();
       test_reserve_fourZero();

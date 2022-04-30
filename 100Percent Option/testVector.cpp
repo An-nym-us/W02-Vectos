@@ -16,6 +16,9 @@
 #include "testSpy.h"        // for the spy unit tests
 int Spy::counters[] = {};
 
+#include <vector>
+#include <iostream>
+
 
 /**********************************************************************
  * MAIN
@@ -24,8 +27,25 @@ int Spy::counters[] = {};
 int main()
 {
 
-   custom::vector<int> test;
+   //std::vector<int> test =  {1,2,3,7};
 
+
+   //std::vector<int> sec;
+   //for (int i = 0; i < test.size(); i++)
+   //   std::cout << test[i] << std::endl;
+
+   //for (int i = 0; i < sec.size(); i++)
+   //   std::cout << sec[i] << std::endl;
+
+   //std::cout << "spacer" << std::endl;
+
+   //sec = test;
+
+   //for (int i = 0; i < test.size(); i++)
+   //   std::cout << test[i] << std::endl;
+
+   //for (int i = 0; i < sec.size(); i++)
+   //   std::cout << sec[i] << std::endl;
 
 #ifdef DEBUG
    // unit tests
