@@ -45,8 +45,8 @@ class vector
    friend class ::TestHash;
 public:
    
-   // 
-   // Construct 
+   //
+   // Construct
    //
    vector();
    vector(size_t numElements);
@@ -86,7 +86,7 @@ public:
          int& back();
    const int& back() const;
 
-   // 
+   //
    // Insert
    //
 
@@ -105,9 +105,6 @@ public:
    }
    void pop_back()
    {
-      data[numElements] = 0;
-      
-      numElements -= 1;
    }
    void shrink_to_fit();
 
@@ -218,7 +215,7 @@ vector :: vector(): data{nullptr}, numElements(0), numCapacity(0)
  * non-default constructor: set the number of elements,
  * construct each element, and copy the values over
  ****************************************/
-vector :: vector(size_t num, const int & t) 
+vector :: vector(size_t num, const int & t)
 {
     data = new int[num];
     numElements = num;
@@ -233,7 +230,7 @@ vector :: vector(size_t num, const int & t)
  * VECTOR :: INITIALIZATION LIST constructors
  * Create a vector with an initialization list.
  ****************************************/
-vector :: vector(const std::initializer_list<int> & l) 
+vector :: vector(const std::initializer_list<int> & l)
 {
    
     data = new int[l.size()];
@@ -326,12 +323,51 @@ vector :: ~vector()
  **************************************/
 void vector :: resize(size_t newElements)
 {
-   numElements = 21;
+//    if(newElements < numElements){
+//        for(int i = int(newElements); int(newElements) < numElements; i++){
+//            delete i;
+//        }
+//    }
+
+  if (newElements > size()){
+        int count = 0;
+        int *newData = new int[newElements];
+        while(count < numElements){
+            newData[count] = data[count];
+            count++;
+        }
+        
+        while(count < newElements){
+            newData[count] = 0;
+            count++;
+        }
+        delete[] data;
+        data = newData;
+      numCapacity = newElements;
+    }
+    numElements = newElements;
 }
 
 void vector :: resize(size_t newElements, const int & t)
 {
-   numElements = 21;
+
+    int count =0;
+    if(newElements > size()) {
+        int *newData = new int[newElements];
+
+        while(count < numElements){
+            newData[count] = data[count];
+            count++;
+        }
+        while(count < newElements){
+            newData[count] = t;
+            count++;
+        }
+        delete[] data;
+        data = newData;
+        numElements = newElements;
+        numCapacity = newElements;
+    }
 }
 
 /***************************************
@@ -344,7 +380,18 @@ void vector :: resize(size_t newElements, const int & t)
  **************************************/
 void vector :: reserve(size_t newCapacity)
 {
-   numCapacity = 21;
+   if (newCapacity <= numCapacity)
+       return;
+
+    int *newData = new int[newCapacity];
+    
+    for(int i=0; i < numElements; i++){
+        newData[i] = data[i];
+    }
+    delete[] data;
+    data = newData;
+    numCapacity = newCapacity;
+    
 }
 
 /***************************************
@@ -426,7 +473,10 @@ const int & vector :: back() const
  **************************************/
 void vector :: push_back (const int & t)
 {
-   
+    data[numElements] = 0;
+    
+    numElements -= 1;
+
 }
 
 void vector :: push_back(int && t)
@@ -444,13 +494,20 @@ void vector :: push_back(int && t)
  **************************************/
 vector & vector :: operator = (const vector & rhs)
 {
-   
-   return *this;
+//    data = rhs.data;
+ 
+        for(int i =0; i < size(); i++)
+            data[i] = rhs.data[i];
+
+    return *this;
 }
 vector& vector :: operator = (vector&& rhs)
 {
+    for(int i =0; i < size(); i++)
+        data[i] = rhs.data[i];
 
-   return *this;
+    return *this;
+  
 }
 
 
@@ -483,3 +540,4 @@ vector::iterator vector :: end()
 
 
 } // namespace custom
+
