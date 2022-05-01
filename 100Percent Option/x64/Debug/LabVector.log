@@ -3,25 +3,4 @@ C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVec
 C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(153,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
 C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(169,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
 C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(203,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'int *' of greater size
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(86,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(75): message : while compiling class template member function 'void custom::vector<int>::swap(custom::vector<int> &)'
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(1183): message : see reference to function template instantiation 'void custom::vector<int>::swap(custom::vector<int> &)' being compiled
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(136): message : see reference to class template instantiation 'custom::vector<int>' being compiled
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(87,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(103,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(104,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(493,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(479): message : while compiling class template member function 'void custom::vector<int>::resize(size_t,const T &)'
-          with
-          [
-              T=int
-          ]
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(499): message : see reference to function template instantiation 'void custom::vector<int>::resize(size_t,const T &)' being compiled
-          with
-          [
-              T=int
-          ]
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(464,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\vector.h(451): message : while compiling class template member function 'void custom::vector<int>::resize(size_t)'
-C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\testVector.h(474): message : see reference to function template instantiation 'void custom::vector<int>::resize(size_t)' being compiled
   LabVector.vcxproj -> C:\Users\Jonathans Desktop\Documents\GitHub\W02-Vectos\100Percent Option\x64\Debug\LabVector.exe
