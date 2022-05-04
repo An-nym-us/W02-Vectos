@@ -560,7 +560,7 @@ const T & vector <T> :: front () const
 template <typename T>
 T & vector <T> :: back()
 {
-   return data[numElements - 1];
+   return data  [numElements - 1];
 }
 
 /******************************************
@@ -570,7 +570,7 @@ T & vector <T> :: back()
 template <typename T>
 const T & vector <T> :: back() const
 {
-   return data[numElements - 1];
+   return data [ numElements - 1];
 }
 
 /***************************************

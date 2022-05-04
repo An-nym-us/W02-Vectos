@@ -37,7 +37,14 @@ int main()
    //for (int i = 0; i < sec.size(); i++)
    //   std::cout << sec[i] << std::endl;
 
-   //std::cout << "spacer" << std::endl;
+   int x = 5, y = 8;
+   if(x & y)
+      std::cout << "reager" << (x&y) << std::endl;
+   else
+      std::cout << "not" << (x & y) << std::endl;
+
+   int32_t nums[3] = { 2,4,3 };
+   std::cout << ( nums[0] << nums[1] << nums [2]) << std::endl;
 
    //sec = test;
 
